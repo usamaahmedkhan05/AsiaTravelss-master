@@ -128,74 +128,81 @@
 
 
                 </div>
-                <div class="col-md-8">
-                    <div class="aonomy-section-header">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <h3>Enquiry Form</h3>
-                                <p class="miraz_size">Please use the form below if you have any questions for us and we’ll get back to you shortly.</p>
 
-                            </div><!-- end .col-lg-12 -->
-                        </div><!-- end .row -->
-                    </div><!-- end .aonomy-section-header -->
-
-                    <div class="aonomy-contact-container">
-                        <form id="aonomy-forms" class="contact__form" method="POST" action="SendMessage">
+              
+                    <div class="col-md-8">
+                        <div class="aonomy-section-header">
                             <div class="row">
-
-                                <div class="col-xl-6">
-                                    <div class="form-group">
-                                        <input type="text" placeholder="Your Name" name="fname" id="fname" required="required">
-                                    </div><!-- end .form-group -->
-
-                                </div><!-- end .col-xl- -->
-
-                                <div class="col-xl-6">
-                                    <div class="form-group">
-                                        <input type="email" placeholder="Your Email" name="email" id="email" required>
-                                    </div><!-- end .form-group -->
-
-                                </div><!-- end .col-xl- -->
-
-                                <div class="col-xl-6">
-                                    <div class="form-group">
-                                        <input type="text" name="phone" id="phone" required="required" placeholder="Your Number  ">
-                                    </div><!-- end .form-group -->
-
-                                </div><!-- end .col-xl- -->
-
-                                <div class="col-xl-6">
-                                    <div class="form-group">
-                                        <input type="text" name="subject" id="subject" required="required" placeholder="Your Subject  ">
-                                    </div><!-- end .form-group -->
-
-                                </div><!-- end .col-xl- -->
-
                                 <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <textarea placeholder="Your Message" name="message" id="message" required="required"></textarea>
-                                    </div><!-- end .form-group -->
-                                </div><!-- end .col-xl-12 -->
+                                    <h3>Enquiry Form</h3>
+                                    <p class="miraz_size">Please use the form below if you have any questions for us and we’ll get back to you shortly.</p>
 
-                                <div class="col-xl-12">
-                                    <div class="aonomy-btn">
-                                        <button name="submit" type="submit" class="btn" id="submit-btn"><i class="icofont icofont-location-arrow"></i> Send Message</button>
-                                    </div><!-- end .form-group -->
-                                </div><!-- end .col-xl-12 -->
+                                </div><!-- end .col-lg-12 -->
                             </div><!-- end .row -->
-                            <!-- form message -->
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="alert alert-success contact__msg" style="display: none" role="alert">
-                                        Your message was sent successfully.
+                        </div><!-- end .aonomy-section-header -->
+
+                        <div class="aonomy-contact-container">
+                            @using (Html.BeginForm("Contact", "Home", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @*<form id="aonomy-forms" class="contact__form" method="POST" action="SendMessage">*@
+                                <div class="row">
+
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <input type="text" placeholder="Your Name" name="FromName" id="fname" required="required">
+                                        </div><!-- end .form-group -->
+
+                                    </div><!-- end .col-xl- -->
+
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <input type="email" placeholder="Your Email" name="FromEmail" id="email" required>
+                                        </div><!-- end .form-group -->
+
+                                    </div><!-- end .col-xl- -->
+
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <input type="text" name="Phone" id="phone" required="required" placeholder="Your Number  ">
+                                        </div><!-- end .form-group -->
+
+                                    </div><!-- end .col-xl- -->
+
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <input type="text" name="Subject" id="subject" required="required" placeholder="Your Subject  ">
+                                        </div><!-- end .form-group -->
+
+                                    </div><!-- end .col-xl- -->
+
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <textarea placeholder="Your Message" name="message" id="message" required="required"></textarea>
+                                        </div><!-- end .form-group -->
+                                    </div><!-- end .col-xl-12 -->
+
+                                    <div class="col-xl-12">
+                                        <div class="aonomy-btn">
+                                            <button name="submit" type="submit" class="btn" id="submit-btn"><i class="icofont icofont-location-arrow"></i> Send Message</button>
+                                        </div><!-- end .form-group -->
+                                    </div><!-- end .col-xl-12 -->
+                                </div><!-- end .row -->
+                                <!-- form message -->
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="alert alert-success contact__msg" style="display: none" role="alert">
+                                            Your message was sent successfully.
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- end message -->
-                        </form><!-- end #aonomy-form -->
-                    </div><!-- end .aonomy-contact-container -->
+                                <!-- end message -->
+                                @*</form> end #aonomy-form*@
+                            }
+                        </div><!-- end .aonomy-contact-container -->
 
-                </div>
+
+                    </div>
             </div>
 
         </div><!-- end .container -->
