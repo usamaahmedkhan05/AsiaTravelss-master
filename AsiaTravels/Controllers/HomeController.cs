@@ -13,6 +13,11 @@ namespace AsiaTravels.Controllers
 
     public class HomeController : Controller
     {
+        private string body;
+
+        public SmtpDeliveryMethod DeliveryMethod { get; private set; }
+        public bool UseDefaultCredentials { get; private set; }
+
         public ActionResult Index()
         {
             return View();
@@ -31,38 +36,56 @@ namespace AsiaTravels.Controllers
 
             return View();
         }
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Contact(EmailFormModel model)
+        public ActionResult SendEmails(string receiver, string subject, string message)
         {
+            try { 
             if (ModelState.IsValid)
             {
-                var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
-                MailMessage message = new MailMessage();
-                message.To.Add(new MailAddress("recipient@gmail.com"));  // replace with valid value 
-                message.From = new MailAddress("sender@outlook.com");  // replace with valid value
-                message.Subject = "Your email subject";
-                message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
-                message.IsBodyHtml = true;
+                MailAddress senderEmail = new MailAddress("musamasood@gmail.com", "Demo");
+                var receiverEmail = new MailAddress(receiver, "Receiver");
+                var password = "Um9-5Tz)(,5tanx";
+                    var sub = subject;
+                    string body = message;
 
-                using (var smtp = new SmtpClient())
+                    var smtp = new SmtpClient
                 {
-                    var credential = new NetworkCredential
-                    {
-                        UserName = "user@outlook.com",  // replace with valid value
-                        Password = "password"  // replace with valid value
-                    };
-                    smtp.Credentials = credential;
-                    smtp.Host = "smtp-mail.outlook.com";
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    await smtp.SendMailAsync(message);
-                    return RedirectToAction("Sent");
+                        Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                };
+
+                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                {
+                    Subject = (string)subject,
+                    Body = body,
+                })
+                {
+                    smtp.Send(mess);
                 }
+                  ViewBag.Index = "Sucessfully sent";
+                return RedirectToAction("Index");
             }
-            return View(model);
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "Some Error";
+                return RedirectToAction("Some Error");
+            }
+            return View();
+
+
         }
+
+        private new ActionResult View(object model)
+        {
+            throw new NotImplementedException();
+        }
+
         public ActionResult Sent()
         {
             return View();
