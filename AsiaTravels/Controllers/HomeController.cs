@@ -83,15 +83,15 @@ namespace AsiaTravels.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SendEmails(string Name, string FromEmail, string Message, double Phone, string Subject)
+        public ActionResult Contact(string Name, string FromEmail, string Message, double Phone, string Subject)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var senderEmail = new MailAddress("musamasood1122@gmail.com", "Demo");
-                    var receiverEmail = new MailAddress("ussama.ahmed05@gmail.com");
-                    var password = "Um9-5Tz)(,5tanx";
+                    var senderEmail = new MailAddress("musamasood@gmail.com", "Demo");
+                    var receiverEmail = new MailAddress(FromEmail, "FromEmail");
+                    var password = "HondaCg125";
                     var sub = Subject;
                     var body = Message;
                     var name = Name;
